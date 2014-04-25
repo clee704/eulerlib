@@ -7,6 +7,7 @@ def generate_fibonacci(a=1, b=1):
 
     generate_fibonacci([1[, 1]]) --> 1 1 2 3 5 8 13 ...
     generate_fibonacci(4, 7) --> 4 7 11 18 29 47 ...
+
     """
     a = a + a - b
     b = b - a
@@ -23,6 +24,7 @@ def generate_polygonal_numbers(r):
     generate_polygonal_numbers(3) --> 1 3 6 10 15 21 ...
     generate_polygonal_numbers(4) --> 1 4 9 16 25 36 ...
     generate_polygonal_numbers(5) --> 1 5 12 22 35 51 ...
+
     """
     a = 1
     b = 1
@@ -37,6 +39,7 @@ def generate_nondecreasing_digits():
     """Generate a sequence of positive integers that have digits in
     non-decreasing order, in ascending order. See A009994 in OEIS
     (http://www.research.att.com/~njas/sequences/A009994).
+
     """
     next = 1
     while 1:
@@ -55,6 +58,7 @@ def generate_nonincreasing_digits():
     """Generate a sequence of positive integers that have digits in
     non-increasing order, in ascending order. See A009996 in OEIS
     (http://www.research.att.com/~njas/sequences/A009996).
+
     """
     next = 1
     while 1:
@@ -77,6 +81,7 @@ def generate_pandigitals(n):
 
     generate_pandigitals(3) --> 321 312 231 213 132 123
     generate_pandigitals(5) --> 54321 54312 54231 54213 54132 54123 ...
+
     """
     if not 1 <= n <= 9:
         return
@@ -85,7 +90,7 @@ def generate_pandigitals(n):
 
 
 def is_palindromic(x):
-    "Return True if x is a palindromic sequence."
+    """Return True if x is a palindromic sequence."""
     i = 1
     j = len(x) // 2
     while i <= j and x[i - 1] == x[-i]:
@@ -96,6 +101,7 @@ def is_palindromic(x):
 def is_pandigital(x, n):
     """Return True if x is a pandigital sequence of length n,
     containing all digits 1 to n.
+
     """
     seen = [0] * n
     for d in x:

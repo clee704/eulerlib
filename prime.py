@@ -5,7 +5,7 @@ from random import randint
 
 
 def generate_primes(n):
-    "Generate all prime numbers less than n."
+    """Generate all prime numbers less than n."""
     if n <= 2:
         return iter([])
     sieve = [0, 1] * ((n + 1) >> 1)
@@ -31,6 +31,7 @@ def more_primes(primes, n):
     The list must meet the following properties: 1) It must have all
     prime numbers less than some m <= n and m > 2, in ascending order.
     2) n <= p * p where p is the largest prime number in the list.
+
     """
     a = primes[-1] + 1
     b = n - a
@@ -58,6 +59,7 @@ def more_primes(primes, n):
 class prime_iterator(object):
     """Prime number iterator supporting efficient re-iterating
     from the first number.
+
     """
 
     def __init__(self, n=10000):
@@ -71,6 +73,7 @@ class prime_iterator(object):
 
         The least possible value for n is 3, although higher value is
         recommended for performance.
+
         """
         if n < 3:
             raise ValueError('too small n: {0}'.format(n))
@@ -111,6 +114,7 @@ def is_prime(n, k=10):
     It never returns False if n is prime. If n is composite, it returns
     False most of the time, but may return True with the probability p <=
     4 ** -k (in the worst case; usually much less than 4 ** -k).
+
     """
     if n == 2 or n == 3:
         return True
@@ -139,7 +143,7 @@ def is_prime(n, k=10):
 
 
 def expmod(b, e, m):
-    "Compute (b ** e) % m where b, e, and m must be positive integers."
+    """Compute (b ** e) % m where b, e, and m must be positive integers."""
     r = 1
     while e:
         if e & 1:
@@ -156,6 +160,7 @@ def factorize(n):
 
     factorize(12) --> [(2, 2), (3, 1)]
     factorize(15750) --> [(2, 1), (3, 2), (5, 3), (7, 1)]
+
     """
     it = factorize._prime_iterator
     factors = []
@@ -177,7 +182,7 @@ factorize._prime_iterator = prime_iterator()
 
 
 def divisors(n):
-    "Return a list of the divisors of n in ascending order."
+    """Return a list of the divisors of n in ascending order."""
     d = [1]
     for p, e in factorize(n):
         l = len(d)
@@ -187,14 +192,14 @@ def divisors(n):
 
 
 def count_divisors(n):
-    "Return the number of positive divisors of n."
+    """Return the number of positive divisors of n."""
     # for n = (p ** a) * (q ** b) * ... * (r ** c),
     # number of positive divisors of n = (a + 1) * (b + 1) * ... * (c + 1)
     return reduce(mul, (e + 1 for (p, e) in factorize(n)), 1)
 
 
 def sum_divisors(n):
-    "Return the sum of positive divisors of n."
+    """Return the sum of positive divisors of n."""
     # for n = (p ** a) * ... * (q ** b),
     # sum of positive divisors of n
     #   = (p ** (a + 1) - 1) // (p - 1) * ... * (q ** (b + 1) - 1) // (q - 1)
@@ -203,7 +208,8 @@ def sum_divisors(n):
 
 
 def proper_divisor_sums(n):
-    "Return a list of sums of proper divisors of positive integers below n."
+    """Return a list of sums of proper divisors of positive integers below n.
+    """
     lst = [1] * n
     lst[0] = 0
     lst[1] = 0

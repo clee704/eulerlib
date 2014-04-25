@@ -13,6 +13,7 @@ def digits(n, base=10):
 
     digits(1437[, 10]) --> [1, 4, 3, 7]
     digits(0xf7, 16) --> [15, 7]
+
     """
     lst = rdigits(n, base)
     lst.reverse()
@@ -26,6 +27,7 @@ def rdigits(n, base=10):
 
     rdigits(1437[, 10]) --> [7, 3, 4, 1]
     rdigits(0367, 8) --> [7, 6, 3]
+
     """
     lst = []
     if n == 0:
@@ -57,7 +59,7 @@ def is_hexagonal(n):
 
 
 def continued_fraction(n):
-    "Return the continued fraction of the positive square root of n."
+    """Return the continued fraction of the positive square root of n."""
     r = sqrt(n)
     a0 = int(r)
     cycle = []
@@ -87,7 +89,7 @@ def binomial_coefficient(n, k):
 
 
 def multinomial_coefficient(n, ks):
-    "Precondition: sum(ks) == n (not checked in this function)"
+    # Precondition: sum(ks) == n (not checked in this function)
     c = factorial(n)
     for k in ks:
         c //= factorial(k)
@@ -105,6 +107,7 @@ def count_permutations(iterable):
 
     count_permutations([0, 1, 2, 3, 4]) --> 120
     count_permutations([1, 2, 2, 3, 3]) --> 30
+
     """
     n = 1
     m = 1

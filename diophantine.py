@@ -22,6 +22,8 @@ def solve_hyperbolic(a, b, c, d, e, f):
     elif t == (4, 0, -5, 0, -8, -4):
         x = [[-1, 0]]
         m = [[[-9, -10, -8], [-8, -9, -8]]]
+    else:
+        raise NotImplementedError
     for y in x:
         y.append(1)
     for n in m:
