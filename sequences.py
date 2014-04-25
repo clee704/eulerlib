@@ -1,4 +1,5 @@
 from itertools import permutations
+
 from .math2 import digits_to_number
 
 
