@@ -1,9 +1,9 @@
 import itertools
 
 import pytest
-
-from eulerlib.math2 import (count_divisors, expmod, factorize, generate_primes,
-                            is_prime, more_primes, prime_iterator)
+from eulerlib.math2 import (binomial_coefficient, count_divisors, expmod,
+                            factorize, generate_primes, is_prime, more_primes,
+                            prime_iterator)
 
 primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,
     67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139,
@@ -128,3 +128,9 @@ def test_count_divisors():
     assert count_divisors(120) == 16
     assert count_divisors(1732) == 6
     assert count_divisors(3717) == 12
+
+
+def test_binomial_coefficient():
+    assert binomial_coefficient(10, 3) == 120
+    assert binomial_coefficient(43, 21) == 1052049481860
+    assert binomial_coefficient(121, 97) == 13562231801970983941985175

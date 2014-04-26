@@ -86,7 +86,15 @@ def generate_convergents(a0, iterator):
 
 
 def binomial_coefficient(n, k):
-    return factorial(n) // factorial(k) // factorial(n - k)
+    if k == 0:
+        return 1
+    if k * 2 > n:
+        k = n - k
+    ret = 1
+    for x in range(k):
+        ret *= n - x
+        ret //= x + 1
+    return ret
 
 
 def multinomial_coefficient(n, ks):
