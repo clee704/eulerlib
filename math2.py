@@ -1,5 +1,6 @@
 from fractions import gcd
 from functools import reduce
+from itertools import permutations
 from math import factorial, log, modf, sqrt
 from operator import mul
 from random import randint
@@ -30,13 +31,15 @@ def rdigits(n, base=10):
     rdigits(0367, 8) --> [7, 6, 3]
 
     """
-    lst = []
+    return list(iter_rdigits(n, base))
+
+
+def iter_rdigits(n, base=10):
     if n == 0:
-        lst.append(0)
+        yield 0
     while n:
         n, d = divmod(n, base)
-        lst.append(d)
-    return lst
+        yield d
 
 
 def digits_to_number(iterable, base=10):
@@ -44,6 +47,12 @@ def digits_to_number(iterable, base=10):
     for d in iterable:
         n *= base
         n += d
+    return n
+
+
+def digital_root(n, base=10):
+    while n >= base:
+        n = sum(digits(n, base))
     return n
 
 
@@ -57,6 +66,118 @@ def is_pentagonal(n):
 
 def is_hexagonal(n):
     return modf((1 + sqrt(1 + 8 * n)) / 4)[0] == 0
+
+
+def is_palindromic(x):
+    """Return True if x is a palindromic sequence."""
+    i = 1
+    j = len(x) // 2
+    while i <= j and x[i - 1] == x[-i]:
+        i += 1
+    return i > j
+
+
+def is_pandigital(x, n):
+    """Return True if x is a pandigital sequence of length n,
+    containing all digits 1 to n.
+
+    """
+    seen = [0] * n
+    for d in x:
+        if not 1 <= d <= n:
+            return False
+        elif seen[d - 1]:
+            return False
+        else:
+            seen[d - 1] = 1
+    return all(seen)
+
+
+def iter_fibonacci(a=1, b=1):
+    """Generate a general Fibonacci sequence starting from a and b.
+
+    iter_fibonacci([1[, 1]]) --> 1 1 2 3 5 8 13 ...
+    iter_fibonacci(4, 7) --> 4 7 11 18 29 47 ...
+
+    """
+    a = a + a - b
+    b = b - a
+    while 1:
+        c = a + b
+        yield c
+        a = b
+        b = c
+
+
+def iter_polygonal_numbers(r):
+    """Generate r-gonal numbers.
+
+    iter_polygonal_numbers(3) --> 1 3 6 10 15 21 ...
+    iter_polygonal_numbers(4) --> 1 4 9 16 25 36 ...
+    iter_polygonal_numbers(5) --> 1 5 12 22 35 51 ...
+
+    """
+    a = 1
+    b = 1
+    c = r - 2
+    while 1:
+        yield a
+        b += c
+        a += b
+
+
+def iter_nondecreasing_digits():
+    """Generate a sequence of positive integers that have digits in
+    non-decreasing order, in ascending order. OEIS A009994
+    (http://www.research.att.com/~njas/sequences/A009994).
+
+    """
+    next = 1
+    while 1:
+        yield next
+        next += 1
+        if next % 10 == 0:
+            m = next // 10
+            k = 1
+            while m % 10 == 0:
+                m //= 10
+                k = k * 10 + 1
+            next += m % 10 * k
+
+
+def iter_nonincreasing_digits():
+    """Generate a sequence of positive integers that have digits in
+    non-increasing order, in ascending order. OEIS A009996
+    (http://www.research.att.com/~njas/sequences/A009996).
+
+    """
+    next = 1
+    while 1:
+        yield next
+        m, r = divmod(next, 10)
+        if m % 10 == r:
+            m //= 10
+            k = 10
+            while m % 10 == r:
+                m //= 10
+                k *= 10
+            next = (m * 10 + r + 1) * k
+        else:
+            next += 1
+
+
+def iter_pandigitals(n):
+    """Generate n-digit pandigital numbers in descending order.
+    n must be >= 1 and <= 9, or nothing will be generated.
+
+    iter_pandigitals(3) --> 321 312 231 213 132 123
+    iter_pandigitals(5) --> 54321 54312 54231 54213 54132 54123 ...
+
+    """
+    if not 1 <= n <= 9:
+        return
+    for p in permutations(range(n, 0, -1)):
+        yield digits_to_number(p)
 
 
 def continued_fraction(n):
@@ -76,7 +197,7 @@ def continued_fraction(n):
     return (a0, tuple(cycle))
 
 
-def generate_convergents(a0, iterator):
+def iter_convergents(a0, iterator):
     n1, n0 = 1, a0
     d1, d0 = 0, 1
     for x in iterator:
@@ -162,7 +283,7 @@ def inverse_mod(a, m):
     return y2 % m if n == 1 else None
 
 
-def generate_primes(n):
+def iter_primes(n):
     """Generate all prime numbers less than n."""
     if n <= 2:
         return iter([])
@@ -235,7 +356,7 @@ class prime_iterator(object):
         """
         if n < 3:
             raise ValueError('too small n: {0}'.format(n))
-        self._p = list(generate_primes(n))
+        self._p = list(iter_primes(n))
         self._len = len(self._p)
         self._i = 0
         self._n = n
@@ -261,7 +382,7 @@ class prime_iterator(object):
         i = self._i
         self._i += 1
         while i == self._len:
-          self._augment()
+            self._augment()
         return p[i]
 
 

@@ -4,10 +4,12 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 class PriorityQueue(metaclass=ABCMeta):
 
     @abstractmethod
-    def __len__(self): pass
+    def __len__(self):
+        pass
 
     @abstractmethod
-    def __contains__(self, item): pass
+    def __contains__(self, item):
+        pass
 
     @abstractmethod
     def add(self, item):
