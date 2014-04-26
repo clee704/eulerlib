@@ -312,7 +312,7 @@ def factorize(n):
     factorize(15750) --> [(2, 1), (3, 2), (5, 3), (7, 1)]
 
     """
-    it = factorize._prime_iterator
+    it = _factorize_prime_iterator
     factors = []
     it.reset()
     for p in it:
@@ -328,7 +328,7 @@ def factorize(n):
     if n > 1:
         factors.append((n, 1))
     return factors
-factorize._prime_iterator = prime_iterator()
+_factorize_prime_iterator = prime_iterator()
 
 
 def divisors(n):
