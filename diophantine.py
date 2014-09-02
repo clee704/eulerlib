@@ -6,6 +6,8 @@ def solve_hyperbolic(a, b, c, d, e, f):
     if b * b - 4 * a * c <= 0:
         raise ArithmeticError
     # TODO implement
+    # in the meantime, just use http://www.alpertron.com.ar/QUAD.HTM and
+    # hardcode the values
     t = (a, b, c, d, e, f)
     if t == (3, 0, -1, -2, 0, -1):
         x = [[1, 0], [-1, -2], [-1, 2]]
@@ -22,6 +24,9 @@ def solve_hyperbolic(a, b, c, d, e, f):
     elif t == (4, 0, -5, 0, -8, -4):
         x = [[-1, 0]]
         m = [[[-9, -10, -8], [-8, -9, -8]]]
+    elif t == (5, 0, -1, 2, 0, 1):
+        x = [[0, -1], [2, -5], [0, 1], [-1, 2], [-1, -2]]
+        m = [[[-9, -4, -2], [-20, -9, -4]]]
     else:
         raise NotImplementedError
     for y in x:
