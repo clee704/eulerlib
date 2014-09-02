@@ -478,3 +478,19 @@ class AdjacencyListGraph(UndirectedGraph):
         neighbors = self._adjacent_nodes.setdefault(u, [])
         if v not in neighbors:
             neighbors.append(v)
+
+
+def binary_search(a, v):
+    n = len(a)
+    start = 0
+    end = n
+    while start < end:
+        current = (start + end) // 2
+        u = a[current]
+        if u == v:
+            return current
+        elif u > v:
+            end = current
+        else:
+            start = current + 1
+    return start
