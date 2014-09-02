@@ -37,7 +37,7 @@ def solve_hyperbolic(a, b, c, d, e, f):
 
 
 def iter_positive_solutions(initial_solutions, matrices):
-    yielded = set()
+    seen = set()
     queue = []
     for x in initial_solutions:
         _push(queue, x)
@@ -46,8 +46,8 @@ def iter_positive_solutions(initial_solutions, matrices):
     while queue:
         x = tuple(heappop(queue)[1])
         p = (x[0], x[1])
-        if p not in yielded:
-            yielded.add(p)
+        if p not in seen:
+            seen.add(p)
             if p[0] > 0 and p[1] > 0:
                 yield p
             for m in matrices:
